@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="utf-8">
+    <title>文档结构: 将文件生成为base64编码，请在浏览器中打开</title>
+</head>
+
+<body>
+
+    <input id="inputFile" type="file" onchange="convertToBase64();" />
+
+    <br />
+    <br />
+    <label>base64为:</label>
+    <textarea rows="10" cols="100" id="exportBase64String"></textarea>
+
+    <iframe src="" style="width:100%;height:100%" id="inputFilePdf"></iframe>
+
+    <script type="text/javascript">
+        function convertToBase64() {
+            //Read File
+            var selectedFile = document.getElementById("inputFile").files;
+            //Check File is not Empty
+            if (selectedFile.length > 0) {
+                // Select the very first file from list
+                var fileToLoad = selectedFile[0];
+                // FileReader function for read the file.
+                var fileReader = new FileReader();
+                var base64;
+                // Onload of file read the file content
+                fileReader.onload = function (fileLoadedEvent) {
+                    base64 = fileLoadedEvent.target.result;
+                    // Print data in console
+                    console.log(base64);
+                    document.getElementById("exportBase64String").value = base64;
+                    document.getElementById("inputFilePdf").src = base64;
+                };
+                // Convert data to base64
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        }
+    </script>
+</body>
+
+</html>
